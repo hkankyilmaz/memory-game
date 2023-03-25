@@ -1,0 +1,11 @@
+@use "../../../styles/variables";
+
+.footerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: variables.$black;
+  color: variables.$white;
+  height: 5rem;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+}

@@ -1,0 +1,56 @@
+@use "../../../styles/variables";
+
+$marginValue: 20vw;
+$marginValue_: 30px;
+
+@mixin flex_($jc: space-between) {
+  display: flex;
+  justify-content: $jc;
+  align-items: center;
+}
+
+.headerContainer {
+  height: 6rem;
+  width: 100vw;
+  background-color: variables.$black;
+  color: variables.$white;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+
+  .content {
+    width: 100%;
+    height: 100%;
+    @include flex_;
+  }
+
+  .content ul {
+    list-style: none;
+    @include flex_(center);
+    margin: {
+      left: $marginValue;
+    }
+    li {
+      margin-right: 2rem;
+    }
+  }
+  .content div {
+    @include flex_(center);
+    margin: {
+      right: $marginValue;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .headerContainer {
+    .content ul {
+      margin: {
+        left: $marginValue_;
+      }
+    }
+    .content div {
+      margin: {
+        right: $marginValue_;
+      }
+    }
+  }
+}
