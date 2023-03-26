@@ -30,3 +30,20 @@ The following classes belong to the timer owned by the gameDetail component.
   font-weight: bold;
   color: black;
 }
+
+@media (max-width: 1200px) {
+  html,
+  body {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 500px) {
+  html,
+  body {
+    font-size: 10px;
+  }
+  /* svg {
+    height: 100px;
+  } */
+}

@@ -13,6 +13,7 @@ import GameDetail from "@/components/gameDetail/GameDetail";
 function Home() {
   return (
     <div className={styles.container}>
+      <h1 className={styles.titleh1}>Welcome To Memory Game</h1>
       <Chat />
       <Game />
       <GameDetail />

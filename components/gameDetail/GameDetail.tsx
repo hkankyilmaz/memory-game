@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./styles/index.module.scss";
 import "./styles/index.module.scss";
 
-import Button from "../ui/button/button";
+import Button from "../ui/button/Button";
 
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
@@ -22,6 +22,12 @@ const renderTime = ({ remainingTime }: { remainingTime: number }) => {
 };
 
 function GameDetail() {
+  const [size, setSize] = React.useState(false);
+  addEventListener("resize", (event) => {
+    if (window.innerWidth < 500 && size == false) setSize(true);
+    if (window.innerWidth > 500 && size == true) setSize(false);
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.detailContainer}>
@@ -33,7 +39,7 @@ function GameDetail() {
             colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
             colorsTime={[10, 6, 3, 0]}
             onComplete={() => ({ shouldRepeat: true, delay: 1 })}
-            size={200}
+            size={size ? 100 : 200}
           >
             {renderTime}
           </CountdownCircleTimer>
