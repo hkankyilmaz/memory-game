@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+/*
+**
+
+Aşağıdaki class lara module scss içinden erişelemediği için stiller buraya yazılmıştır.(Normal css dosyasına).
+
+Aşağıdaki claslar gameDetail componenti altındaki timer'a aittir.
+
+-----------------
+
+Since the following classes cannot be accessed from the module scss, the styles are written here (to the normal css version).
+
+The following classes belong to the timer owned by the gameDetail component.
+
+*/
+
+.score,
+.text,
+.value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
+}

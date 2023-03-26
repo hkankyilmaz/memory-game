@@ -1,0 +1,25 @@
+@use "score.module";
+
+@mixin flex_ {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  grid-column: 1/ 2;
+  grid-row: 1 / 2;
+  @include flex_();
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  .timer_,
+  .score {
+    width: 100%;
+    height: 50%;
+    @include flex_();
+  }
+}

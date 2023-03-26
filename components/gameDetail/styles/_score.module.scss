@@ -1,0 +1,17 @@
+.score {
+  justify-content: flex-start !important;
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 1rem;
+  }
+
+  table tr:nth-of-type(2) td:nth-of-type(1) {
+    font-weight: bold;
+  }
+  table tr:nth-of-type(3) td:nth-of-type(1) {
+    font-weight: bold;
+  }
+}
