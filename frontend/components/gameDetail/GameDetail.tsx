@@ -23,9 +23,19 @@ const renderTime = ({ remainingTime }: { remainingTime: number }) => {
 
 function GameDetail() {
   const [size, setSize] = React.useState(false);
-  addEventListener("resize", (event) => {
-    if (window.innerWidth < 500 && size == false) setSize(true);
-    if (window.innerWidth > 500 && size == true) setSize(false);
+  window.addEventListener("resize", (event) => {
+    if (
+      typeof window !== "undefined" &&
+      window.innerWidth < 500 &&
+      size == false
+    )
+      setSize(true);
+    if (
+      typeof window !== "undefined" &&
+      window.innerWidth > 500 &&
+      size == true
+    )
+      setSize(false);
   });
 
   return (
