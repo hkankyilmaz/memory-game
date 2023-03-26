@@ -1,0 +1,22 @@
+@use "../../../styles/variables";
+
+.btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+
+  padding: 1rem 2rem;
+  cursor: pointer;
+  color: black;
+  margin-right: 1rem;
+
+  border: 1px black solid;
+  &:hover {
+    background-color: variables.$sequareActive;
+  }
+}
+
+// .btnNone {
+//   display: none;
+// }
