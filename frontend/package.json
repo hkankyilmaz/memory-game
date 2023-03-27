@@ -12,15 +12,18 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.14",
+    "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "18.15.8",
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
+    "@types/react-redux": "^7.1.25",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
     "sass": "^1.60.0",
     "typescript": "5.0.2"
   }
