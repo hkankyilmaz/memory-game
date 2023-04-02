@@ -9,6 +9,12 @@ import Header from "@/components/header/Header";
 import "@/styles/reset.css";
 import "../../styles/global.css";
 
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { apiSlice } from "./store/features/api/apiSlice";
+
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+
 export default function RootLayout({
   children,
 }: {
@@ -16,11 +22,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <Provider store={store}>
+        <ApiProvider api={apiSlice}>
+          <body>
+            <Header />
+            {children}
+            <Footer />
+          </body>
+        </ApiProvider>
+      </Provider>
     </html>
   );
 }
