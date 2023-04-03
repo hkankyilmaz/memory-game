@@ -1,0 +1,31 @@
+.form_ {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  h2 {
+    margin-bottom: 2rem;
+  }
+  h4 {
+    margin-top: 2rem;
+    cursor: pointer;
+  }
+
+  input {
+    appearance: none;
+
+    border: 1px solid black;
+    outline: none;
+    padding: 0.5rem 1rem;
+    margin: 0.6rem 0;
+  }
+  label {
+    font-weight: bold;
+  }
+
+  button {
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+  }
+}
