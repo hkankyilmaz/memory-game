@@ -1,20 +1,24 @@
 import React from "react";
 
 import { FaUserAlt } from "react-icons/fa";
-
 import styles from "./styles/index.module.scss";
 import "./styles/index.module.scss";
+import Link from "next/link";
 
 function Header() {
   return (
     <div className={styles.headerContainer}>
       <div className={styles.content}>
         <ul>
-          <li>Home</li>
-          <li>Dasboard</li>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <Link href="/dashboard">Dashboard</Link>
         </ul>
         <div>
-          <FaUserAlt />
+          <Link href="/login">
+            <FaUserAlt />
+          </Link>
         </div>
       </div>
     </div>

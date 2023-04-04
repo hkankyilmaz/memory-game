@@ -1,7 +1,6 @@
 {
   "name": "memory-game-server",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,13 +13,23 @@
   "author": "Hakan KARAYILMAZ",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.12.0",
+    "@types/cookie-parser": "^1.4.3",
     "@types/express": "^4.17.17",
-    "@types/node": "^18.15.10",
     "concurrently": "^7.6.0",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "nodemon": "^2.0.22",
-    "rimraf": "^4.4.1",
-    "typescript": "^5.0.2"
-  }
+    "rimraf": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "prisma": "^4.12.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.3"
+  },
+  "keywords": [],
+  "description": ""
 }

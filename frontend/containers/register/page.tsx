@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./index.module.scss";
 import "./index.module.scss";
+import Link from "next/link";
 
 function Register() {
   return (
@@ -14,7 +15,9 @@ function Register() {
       <label htmlFor="password_">Password:</label>
       <input type="text" name="password" id="password_" />
       <button type="submit">Send</button>
-      <h4>Back To Login Page</h4>
+      <Link href="login">
+        <h4>Back To Login Page</h4>
+      </Link>
     </form>
   );
 }

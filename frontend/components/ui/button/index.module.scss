@@ -28,3 +28,10 @@
     transform: translateX(0.5rem);
   }
 }
+
+@media (-webkit-min-device-pixel-ratio: 0.99) {
+  .btn {
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+  }
+}

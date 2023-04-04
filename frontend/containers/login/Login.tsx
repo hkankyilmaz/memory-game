@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./index.module.scss";
 import "./index.module.scss";
+import Link from "next/link";
 
 function Login() {
   return (
@@ -12,7 +13,9 @@ function Login() {
       <label htmlFor="password_">Password:</label>
       <input type="text" name="password" id="password_" />
       <button type="submit">Send</button>
-      <h4>Go To Register Page</h4>
+      <Link href="register">
+        <h4>Go To Register Page</h4>
+      </Link>
     </form>
   );
 }

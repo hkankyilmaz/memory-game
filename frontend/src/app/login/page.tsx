@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./style/index.module.scss";
 import "./style/index.module.scss";
 
-import LoginContainer from "@/containers/loginContainer/Login";
+import LoginContainer from "@/containers/login/Login";
 
 function Register() {
   return (

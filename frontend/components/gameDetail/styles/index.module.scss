@@ -58,4 +58,17 @@
   .buttonContainer {
     margin-top: 1.3rem;
   }
+  .h1 {
+    transform: translateY(5px);
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 0.99) {
+  .btn {
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+  }
+  .buttonContainer {
+    margin-top: 2rem;
+  }
 }

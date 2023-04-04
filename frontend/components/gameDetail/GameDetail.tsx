@@ -34,14 +34,14 @@ function GameDetail() {
     <div className={styles.container}>
       <div className={styles.detailContainer}>
         <div className={styles.timer_}>
-          <h1>Time</h1>
+          <h1 className={styles.h1}>Time</h1>
           <CountdownCircleTimer
             isPlaying
             duration={15}
             colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
             colorsTime={[10, 6, 3, 0]}
             onComplete={() => ({ shouldRepeat: true, delay: 1 })}
-            size={size ? 100 : 200}
+            size={size ? 100 : 150}
           >
             {renderTime}
           </CountdownCircleTimer>

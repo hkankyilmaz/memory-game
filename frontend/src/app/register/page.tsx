@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./style/index.module.scss";
 import "./style/index.module.scss";
 
-import RegisterContainer from "@/containers/registerContainer/page";
+import RegisterContainer from "@/containers/register/page";
 
 function Register() {
   return (
