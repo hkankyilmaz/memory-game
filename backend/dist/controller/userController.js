@@ -19,7 +19,10 @@ const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             email: data.email,
             password: data.password,
         });
+        res.status(200).json({ user: user });
     }
-    catch (error) { }
+    catch (error) {
+        console.log(error);
+    }
 });
 exports.userRegister = userRegister;
