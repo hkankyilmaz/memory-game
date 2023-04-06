@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, urlencoded } from "express";
 import { Prisma, PrismaClient } from "@prisma/client";
 import cookieParser from "cookie-parser";
-import userController from "./controller/userController.ts";
+import userRoutes from "./routes/userRoutes.js"; // I write .js for import
 
 export const prisma = new PrismaClient();
 
@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 //routes
 
-app.use("/users", userController);
+app.use("/users", userRoutes);
 
 app.listen(8080, () => {
   console.log("Hello Server");

@@ -1,48 +1,27 @@
 import { prisma } from "../index";
 import express, { Request, Response } from "express";
 
-//Types
-
-/**
- * We extends interfaces with Request and Response type because
- * There is no type in Request and Response type that we will be
- * use for user info
- */
-
-export interface IuserObjRequest extends Request {
-  body: {
-    name?: string;
-    email?: string;
-    password?: string;
-  };
+interface IuserObj {
+  name: string;
+  email: string;
+  password: string;
 }
 
-interface IUser {
-  name?: string;
-  email?: string;
-  password?: string;
-}
-// export interface IuserObjResponce extends Response {
-//   ResBody: {
-//     id?: string;
-//     name?: string;
-//     email?: string;
-//     password?: string;
-//   };
-// }
-export const userRegister = async (
-  req: IuserObjRequest,
-  res: IuserObjRequest
-) => {
+export const userRegister = async (req: Request, res: Response) => {
   try {
-    const data: IUser = req.body;
-    const user = prisma.user.create({
-      name: data.name,
-      email: data.email,
-      password: data.password,
+    const data = req.body;
+    console.log(data);
+    const user = await prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      },
     });
-    res.status(200).json({ user: user });
+    res.json({
+      user,
+    });
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };

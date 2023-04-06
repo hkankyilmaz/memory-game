@@ -30,7 +30,7 @@ exports.prisma = void 0;
 const express_1 = __importStar(require("express"));
 const client_1 = require("@prisma/client");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const userController_ts_1 = __importDefault(require("./controller/userController.ts"));
+const userRoutes_js_1 = __importDefault(require("./routes/userRoutes.js")); // I write .js for import
 exports.prisma = new client_1.PrismaClient();
 const app = (0, express_1.default)();
 //regular middleware
@@ -38,7 +38,7 @@ app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
 app.use((0, cookie_parser_1.default)());
 //routes
-app.use("/users", userController_ts_1.default);
+app.use("/users", userRoutes_js_1.default);
 app.listen(8080, () => {
     console.log("Hello Server");
 });

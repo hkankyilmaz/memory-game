@@ -14,15 +14,20 @@ const index_1 = require("../index");
 const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;
-        const user = index_1.prisma.user.create({
-            name: data.name,
-            email: data.email,
-            password: data.password,
+        console.log(data);
+        const user = yield index_1.prisma.user.create({
+            data: {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+            },
         });
-        res.status(200).json({ user: user });
+        res.json({
+            user,
+        });
     }
     catch (error) {
-        console.log(error);
+        res.send(error);
     }
 });
 exports.userRegister = userRegister;
