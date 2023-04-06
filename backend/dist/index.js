@@ -22,14 +22,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.prisma = void 0;
 const express_1 = __importStar(require("express"));
 const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+exports.prisma = new client_1.PrismaClient();
 const app = (0, express_1.default)();
 //regular middleware
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
+app.use((0, cookie_parser_1.default)());
+//routes
+app.use("/users", userRoute);
 app.listen(8080, () => {
     console.log("Hello Server");
 });
