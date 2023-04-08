@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userRegister = void 0;
+exports.LoginUser = exports.userRegister = void 0;
 const index_1 = require("../index");
 const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -27,7 +27,33 @@ const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         });
     }
     catch (error) {
+        if (error.code === "P2002") {
+            res.send({
+                code: "P2002",
+                message: "User e-mail Already Exist...",
+            });
+        }
         res.send(error);
     }
 });
 exports.userRegister = userRegister;
+const LoginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    const user = yield index_1.prisma.user.findUnique({
+        where: {
+            email,
+        },
+    });
+    let same = false;
+    if (user) {
+        if (user.password == password) {
+        }
+    }
+    else {
+        res.status(401).json({
+            succeded: false,
+            error: "There is no such user",
+        });
+    }
+});
+exports.LoginUser = LoginUser;

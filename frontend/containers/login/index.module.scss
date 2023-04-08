@@ -1,4 +1,6 @@
+@use "../../styles//variables";
 .form_ {
+  width: 50vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,5 +29,13 @@
   button {
     padding: 0.6rem 1.2rem;
     cursor: pointer;
+  }
+
+  .err {
+    color: variables.$errorColor;
+    margin-bottom: 0.4rem;
+  }
+  .errNone {
+    display: none;
   }
 }

@@ -14,7 +14,6 @@ app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //routes
-
 app.use("/users", userRoutes);
 
 app.listen(8080, () => {
