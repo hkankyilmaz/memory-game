@@ -35,15 +35,19 @@ export const LoginUser = async (req: Request, res: Response) => {
         email,
       },
     });
-
     if (user) {
       if (user.password == password) {
-        const token = jwt.sign(user.id, `${process.env.JWT_SECRET}`, {
-          expiresIn: "2h",
+        const token = jwt.sign({ name: user.id }, `${process.env.JWT_SECRET}`, {
+          expiresIn: "1d",
         });
+
         res.cookie("jwt", token, {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24,
+        });
+        res.json({
+          succeded: true,
+          message: "Login Succesfully",
         });
       }
     } else {
@@ -51,7 +55,6 @@ export const LoginUser = async (req: Request, res: Response) => {
         succeded: false,
         error: "There is no such user",
       });
-      res.send("Cookie has been sended");
     }
   } catch (error) {
     res.status(500).json({

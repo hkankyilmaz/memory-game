@@ -7,12 +7,16 @@ import styles from "./index.module.scss";
 import "./index.module.scss";
 import Link from "next/link";
 
+import { useGetUserMutation } from "@/src/app/store/features/api/apiSlice";
+
 function Login() {
+  console.log("resfles");
   const [isErrExist, setIsErrExist] = React.useState({
     status: false,
     emailText: "",
     passwordText: "",
   });
+  const [getUser, { isLoading, data }] = useGetUserMutation();
 
   const userSchema = z.object({
     email: z.string().email(),
@@ -25,8 +29,6 @@ function Login() {
   if (typeof window !== "undefined") {
     document.getElementById("form_")?.addEventListener("submit", (e) => {
       e.preventDefault();
-
-      console.log("Form Submitted");
 
       const spanOne = document.getElementById("spnOne") as HTMLElement;
       const spanTwo = document.getElementById("spnTwo") as HTMLElement;
@@ -54,9 +56,17 @@ function Login() {
         });
 
         const result = userSchema.safeParse(data_);
-        console.log(result);
 
         if (result.success) {
+          console.log(data_);
+          getUser({
+            email: data_.email,
+            password: data_.password,
+          })
+            .unwrap()
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+
           spanOne.innerHTML = "";
           spanTwo.innerHTML = "";
         } else {
@@ -94,7 +104,7 @@ function Login() {
       >
         Deneme
       </span>
-      <button type="submit">Send</button>
+      <button type="submit"> {isLoading ? "Loading..." : "Send"} </button>
       <Link href="register">
         <h4>Go To Register Page</h4>
       </Link>

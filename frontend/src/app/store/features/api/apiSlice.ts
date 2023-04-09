@@ -7,7 +7,7 @@ interface IMatchs {
 }
 
 interface IUser {
-  name: string;
+  name?: string;
   email: string;
   password: string;
   wins?: number;
@@ -17,17 +17,21 @@ interface IUser {
 
 export const apiSlice = createApi({
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080" }),
   endpoints: (builder) => ({
     getUsers: builder.query<IUser[], void>({
       query: () => `users`,
     }),
-    getUser: builder.query<IUser, string>({
-      query: (id) => `users`,
+    getUser: builder.mutation<IUser, any>({
+      query: (user) => ({
+        url: "/users/login",
+        method: "POST",
+        body: user,
+      }),
     }),
     registerUser: builder.mutation<IUser, IUser>({
       query: (user) => ({
-        url: "/user-register",
+        url: "/users/register",
         method: "POST",
         body: user,
       }),
@@ -37,7 +41,7 @@ export const apiSlice = createApi({
       { idOne: string; idTwo: string }
     >({
       query: ({ idOne, idTwo }) => ({
-        url: "/result-register",
+        url: "/game-register",
         method: "POST",
         body: { idOne, idTwo },
       }),
@@ -47,7 +51,7 @@ export const apiSlice = createApi({
 
 export const {
   useGetUsersQuery,
-  useGetUserQuery,
+  useGetUserMutation,
   useRegisterUserMutation,
   useRegisterMatchResultMutation,
 } = apiSlice;

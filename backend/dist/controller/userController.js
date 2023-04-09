@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoginUser = exports.userRegister = void 0;
 const index_1 = require("../index");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;
@@ -38,21 +42,39 @@ const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.userRegister = userRegister;
 const LoginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.body;
-    const user = yield index_1.prisma.user.findUnique({
-        where: {
-            email,
-        },
-    });
-    let same = false;
-    if (user) {
-        if (user.password == password) {
+    try {
+        const { email, password } = req.body;
+        const user = yield index_1.prisma.user.findUnique({
+            where: {
+                email,
+            },
+        });
+        if (user) {
+            if (user.password == password) {
+                const token = jsonwebtoken_1.default.sign({ name: user.id }, `${process.env.JWT_SECRET}`, {
+                    expiresIn: "1d",
+                });
+                res.cookie("jwt", token, {
+                    httpOnly: true,
+                    maxAge: 1000 * 60 * 60 * 24,
+                });
+                res.json({
+                    succeded: true,
+                    message: "Login Succesfully",
+                });
+            }
+        }
+        else {
+            res.status(401).json({
+                succeded: false,
+                error: "There is no such user",
+            });
         }
     }
-    else {
-        res.status(401).json({
+    catch (error) {
+        res.status(500).json({
             succeded: false,
-            error: "There is no such user",
+            error,
         });
     }
 });
