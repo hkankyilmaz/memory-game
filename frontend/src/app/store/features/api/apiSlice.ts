@@ -19,6 +19,7 @@ export const apiSlice = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8080",
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     getUsers: builder.query<IUser[], void>({
