@@ -13,17 +13,25 @@ export const userRegister = async (req: Request, res: Response) => {
         password: data.password,
       },
     });
-    res.json({
+    res.status(200).json({
       user,
+      succeded: true,
+      message: "Register Succesfully",
     });
   } catch (error: any) {
     if (error.code === "P2002") {
-      res.send({
+      res.status(400).json({
         code: "P2002",
+        succeded: false,
         message: "User e-mail Already Exist...",
       });
+    } else {
+      res.status(500).json({
+        succeded: false,
+        message: "Oh no, There is a Problem...",
+        error,
+      });
     }
-    res.send(error);
   }
 };
 
@@ -45,7 +53,9 @@ export const LoginUser = async (req: Request, res: Response) => {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24,
         });
-        res.json({
+        res.status(200).json({
+          user,
+          token,
           succeded: true,
           message: "Login Succesfully",
         });
@@ -53,12 +63,13 @@ export const LoginUser = async (req: Request, res: Response) => {
     } else {
       res.status(401).json({
         succeded: false,
-        error: "There is no such user",
+        message: "There is no such user",
       });
     }
   } catch (error) {
     res.status(500).json({
       succeded: false,
+      message: "Oh no, There is a Problem...",
       error,
     });
   }

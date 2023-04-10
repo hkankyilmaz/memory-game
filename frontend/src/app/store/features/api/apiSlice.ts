@@ -17,19 +17,21 @@ interface IUser {
 
 export const apiSlice = createApi({
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:8080",
+  }),
   endpoints: (builder) => ({
     getUsers: builder.query<IUser[], void>({
       query: () => `users`,
     }),
-    getUser: builder.mutation<IUser, any>({
+    getUser: builder.mutation<any, any>({
       query: (user) => ({
         url: "/users/login",
         method: "POST",
         body: user,
       }),
     }),
-    registerUser: builder.mutation<IUser, IUser>({
+    registerUser: builder.mutation<any, any>({
       query: (user) => ({
         url: "/users/register",
         method: "POST",

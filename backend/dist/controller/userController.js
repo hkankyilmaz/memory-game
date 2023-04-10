@@ -26,18 +26,27 @@ const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 password: data.password,
             },
         });
-        res.json({
+        res.status(200).json({
             user,
+            succeded: true,
+            message: "Register Succesfully",
         });
     }
     catch (error) {
         if (error.code === "P2002") {
-            res.send({
+            res.status(400).json({
                 code: "P2002",
+                succeded: false,
                 message: "User e-mail Already Exist...",
             });
         }
-        res.send(error);
+        else {
+            res.status(500).json({
+                succeded: false,
+                message: "Oh no, There is a Problem...",
+                error,
+            });
+        }
     }
 });
 exports.userRegister = userRegister;
@@ -58,7 +67,9 @@ const LoginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     httpOnly: true,
                     maxAge: 1000 * 60 * 60 * 24,
                 });
-                res.json({
+                res.status(200).json({
+                    user,
+                    token,
                     succeded: true,
                     message: "Login Succesfully",
                 });
@@ -67,13 +78,14 @@ const LoginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         else {
             res.status(401).json({
                 succeded: false,
-                error: "There is no such user",
+                message: "There is no such user",
             });
         }
     }
     catch (error) {
         res.status(500).json({
             succeded: false,
+            message: "Oh no, There is a Problem...",
             error,
         });
     }

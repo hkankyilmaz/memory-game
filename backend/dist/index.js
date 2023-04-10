@@ -37,7 +37,7 @@ const app = (0, express_1.default)();
 //regular middleware
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({ origin: true, credentials: true }));
 app.use((0, cookie_parser_1.default)());
 //routes
 app.use("/users", userRoutes_js_1.default);

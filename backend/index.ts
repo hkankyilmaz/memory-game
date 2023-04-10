@@ -11,7 +11,7 @@ const app = express();
 //regular middleware
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 
 app.use(cookieParser());
 
