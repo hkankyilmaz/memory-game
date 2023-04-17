@@ -12,7 +12,7 @@ import { FormEvent, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { useRegisterUserMutation } from "@/src/app/store/features/api/apiSlice";
+import { useRegisterUserMutation } from "@/src/app/store/features/api/userApiSlice";
 
 function Login() {
   const spanOneRef = useRef<HTMLSpanElement>(null);

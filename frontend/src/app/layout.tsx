@@ -7,14 +7,10 @@ export const metadata = {
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 
+import { Providers } from "./store/provider";
+
 import "@/styles/reset.css";
 import "../../styles/global.css";
-
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
-import { apiSlice } from "./store/features/api/apiSlice";
-
-import { Provider } from "react-redux";
-import { store } from "./store/store";
 
 export default function RootLayout({
   children,
@@ -23,15 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Provider store={store}>
-        <ApiProvider api={apiSlice}>
-          <body>
-            <Header />
-            {children}
-            <Footer />
-          </body>
-        </ApiProvider>
-      </Provider>
+      <Providers>
+        <body>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </Providers>
     </html>
   );
 }

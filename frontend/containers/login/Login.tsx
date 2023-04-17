@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { FormEvent, useRef } from "react";
 
-import { useGetUserMutation } from "@/src/app/store/features/api/apiSlice";
+import { useGetUserMutation } from "@/src/app/store/features/api/userApiSlice";
 
 import { useAppSelector, useAppDispatch } from "@/src/app/store/hooks";
 import { whoIsUser } from "@/src/app/store/features/user/userSlice";

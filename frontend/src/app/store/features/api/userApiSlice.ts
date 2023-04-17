@@ -15,7 +15,7 @@ interface IUser {
   matchs?: IMatchs[];
 }
 
-export const apiSlice = createApi({
+export const userApiSlice = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8080",
@@ -57,4 +57,4 @@ export const {
   useGetUserMutation,
   useRegisterUserMutation,
   useRegisterMatchResultMutation,
-} = apiSlice;
+} = userApiSlice;
