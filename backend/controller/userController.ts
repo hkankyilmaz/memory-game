@@ -74,3 +74,10 @@ export const LoginUser = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const loginWithToken = (req: Request, res: Response) => {
+  const token = req.body;
+  console.log(token);
+
+  res.send("OK");
+};

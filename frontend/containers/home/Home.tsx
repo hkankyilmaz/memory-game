@@ -9,9 +9,20 @@ import Chat from "@/components/chat/Chat";
 import Game from "@/components/game/Game";
 import GameDetail from "@/components/gameDetail/GameDetail";
 
-import { useAppSelector } from "@/src/app/store/hooks";
+import { getCookies } from "cookies-next";
+
+import { useAppDispatch, useAppSelector } from "@/src/app/store/hooks";
+import { useGetUserWithTokenMutation } from "@/src/app/store/features/api/userApiSlice";
 
 function Home() {
+  const [getUser, { isLoading, data }] = useGetUserWithTokenMutation();
+  React.useEffect(() => {
+    const token = getCookies();
+    console.log(token);
+    if (typeof token === "string") {
+      getUser(token);
+    }
+  }, []);
   const user = useAppSelector((state) => state.user);
   return (
     <div className={styles.container}>

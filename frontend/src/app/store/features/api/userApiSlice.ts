@@ -32,6 +32,13 @@ export const userApiSlice = createApi({
         body: user,
       }),
     }),
+    getUserWithToken: builder.mutation<IUser, string>({
+      query: (id) => ({
+        url: "/users/login-with-token",
+        method: "POST",
+        body: id,
+      }),
+    }),
     registerUser: builder.mutation<any, any>({
       query: (user) => ({
         url: "/users/register",
@@ -57,4 +64,5 @@ export const {
   useGetUserMutation,
   useRegisterUserMutation,
   useRegisterMatchResultMutation,
+  useGetUserWithTokenMutation,
 } = userApiSlice;

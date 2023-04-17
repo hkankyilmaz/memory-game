@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginUser = exports.userRegister = void 0;
+exports.loginWithToken = exports.LoginUser = exports.userRegister = void 0;
 const index_1 = require("../index");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -91,3 +91,9 @@ const LoginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.LoginUser = LoginUser;
+const loginWithToken = (req, res) => {
+    const token = req.body;
+    console.log(token);
+    res.send("OK");
+};
+exports.loginWithToken = loginWithToken;
