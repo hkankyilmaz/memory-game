@@ -14,7 +14,15 @@ import { FormEvent, useRef } from "react";
 
 import { useGetUserMutation } from "@/src/app/store/features/api/apiSlice";
 
+import { useAppSelector, useAppDispatch } from "@/src/app/store/hooks";
+import { whoIsUser } from "@/src/app/store/features/user/userSlice";
+
 function Login() {
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  console.log(user);
+
   const spanOneRef = useRef<HTMLSpanElement>(null);
   const spanTwoRef = useRef<HTMLSpanElement>(null);
 
@@ -73,6 +81,12 @@ function Login() {
           .then((res) => {
             toast.success(res.message);
             console.log(res);
+            dispatch(
+              whoIsUser({
+                name: res.user.name,
+                email: res.user.email,
+              })
+            );
           })
           .catch((err) => {
             if (err.data.message) {

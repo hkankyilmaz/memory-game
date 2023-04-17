@@ -4,8 +4,6 @@ import type { NextRequest } from "next/server";
 export function middleware(req: NextRequest) {
   // get cookie token
   const hasToken = req.cookies.get("jwt");
-  console.log(hasToken);
-  console.log(req.url);
 
   // protected routes (admin routes)
   if (req.nextUrl.pathname.startsWith("/dashboard")) {
