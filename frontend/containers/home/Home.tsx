@@ -13,14 +13,28 @@ import { getCookies } from "cookies-next";
 
 import { useAppDispatch, useAppSelector } from "@/src/app/store/hooks";
 import { useGetUserWithTokenMutation } from "@/src/app/store/features/api/userApiSlice";
+import { whoIsUser } from "@/src/app/store/features/user/userSlice";
 
 function Home() {
-  const [getUser, { isLoading, data }] = useGetUserWithTokenMutation();
+  const [getUserWithToken, { isLoading, data }] = useGetUserWithTokenMutation();
+  const userName = useAppSelector((state) => state.user.name);
+  const dispatch = useAppDispatch();
   React.useEffect(() => {
     const token = getCookies();
-    console.log(token);
-    if (typeof token === "string") {
-      getUser(token);
+    if (typeof token.token === "string" && userName === "Quest") {
+      console.log(token.token);
+      getUserWithToken(token.token)
+        .unwrap()
+        .then((res) => {
+          console.log(res);
+          dispatch(
+            whoIsUser({
+              email: res.email,
+              name: res.name,
+            })
+          );
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
   const user = useAppSelector((state) => state.user);

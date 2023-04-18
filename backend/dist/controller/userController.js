@@ -91,9 +91,41 @@ const LoginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.LoginUser = LoginUser;
-const loginWithToken = (req, res) => {
-    const token = req.body;
-    console.log(token);
-    res.send("OK");
-};
+const loginWithToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const token = req.body;
+        console.log("token", token);
+        jsonwebtoken_1.default.verify(token, `${process.env.JWT_SECRET}`, undefined, function (error, decoded) {
+            return __awaiter(this, void 0, void 0, function* () {
+                if (error) {
+                    res.status(401).json({
+                        succeded: false,
+                        message: "Oh no, There is a Error...",
+                        error,
+                    });
+                }
+                else {
+                    const user = yield index_1.prisma.user.findUnique({
+                        where: {
+                            id: decoded === null || decoded === void 0 ? void 0 : decoded.toString(),
+                        },
+                    });
+                    console.log(user);
+                    res.status(200).json({
+                        succeded: true,
+                        message: "User Check Succesfully...",
+                        user,
+                    });
+                }
+            });
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            succeded: false,
+            message: "Oh no, There is a Problem...",
+            error,
+        });
+    }
+});
 exports.loginWithToken = loginWithToken;

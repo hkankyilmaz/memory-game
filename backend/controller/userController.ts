@@ -1,6 +1,7 @@
 import { prisma } from "../index";
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { VerifyErrors } from "jsonwebtoken";
 
 export const userRegister = async (req: Request, res: Response) => {
   try {
@@ -75,9 +76,43 @@ export const LoginUser = async (req: Request, res: Response) => {
   }
 };
 
-export const loginWithToken = (req: Request, res: Response) => {
-  const token = req.body;
-  console.log(token);
+export const loginWithToken = async (req: Request, res: Response) => {
+  try {
+    const token = req.body;
+    console.log("token", token);
 
-  res.send("OK");
+    jwt.verify(
+      token,
+      `${process.env.JWT_SECRET}`,
+      undefined,
+      async function (error, decoded) {
+        if (error) {
+          res.status(401).json({
+            succeded: false,
+            message: "Oh no, There is a Error...",
+            error,
+          });
+        } else {
+          const user = await prisma.user.findUnique({
+            where: {
+              id: decoded?.toString(),
+            },
+          });
+
+          console.log(user);
+          res.status(200).json({
+            succeded: true,
+            message: "User Check Succesfully...",
+            user,
+          });
+        }
+      }
+    );
+  } catch (error) {
+    res.status(500).json({
+      succeded: false,
+      message: "Oh no, There is a Problem...",
+      error,
+    });
+  }
 };
