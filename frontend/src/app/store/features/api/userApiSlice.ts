@@ -7,7 +7,7 @@ interface IMatchs {
 }
 
 interface IUser {
-  name?: string;
+  name: string;
   email: string;
   password: string;
   wins?: number;
