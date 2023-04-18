@@ -73,6 +73,7 @@ function GameDetail() {
           </table>
           <div className={styles.buttonContainer}>
             <Button isActive={true} text="Finish Game" />
+            <Button isActive={true} text="Start Game" />
             <Button isActive={true} text="Pause Game" />
           </div>
         </div>
