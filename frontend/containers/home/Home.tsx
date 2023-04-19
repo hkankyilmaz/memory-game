@@ -21,6 +21,7 @@ function Home() {
   const dispatch = useAppDispatch();
   React.useEffect(() => {
     const token = getCookies();
+    console.log(token.token);
     if (typeof token.token === "string" && userName === "Quest") {
       console.log(token.token);
       getUserWithToken(token.token)

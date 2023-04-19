@@ -9,13 +9,13 @@ type IPlayerGeneric<T> = {
 };
 
 interface IGame {
-  pattern: string[];
+  pattern: string[] | [];
   round: number;
   playerOne: IPlayerGeneric<string> | null;
   playerTwo: IPlayerGeneric<string> | null;
   win: number | null;
   lose: number | null;
-  matchs: { rival: string; result: string; score: string }[];
+  matchs: { rival: string; result: string; score: string }[] | [];
 }
 
 const initialState: IGame = {
