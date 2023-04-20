@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/user/userSlice";
 import { userApiSlice } from "./features/api/userApiSlice";
+import chatReducer from "./features/chat/chatSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 // ...
@@ -8,6 +9,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    chat: chatReducer,
     [userApiSlice.reducerPath]: userApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
