@@ -15,8 +15,6 @@ import { useAppDispatch, useAppSelector } from "@/src/app/store/hooks";
 import { useGetUserWithTokenMutation } from "@/src/app/store/features/api/userApiSlice";
 import { whoIsUser } from "@/src/app/store/features/user/userSlice";
 
-import { init } from "@/src/app/socketio";
-
 function Home() {
   const [getUserWithToken, { isLoading, data }] = useGetUserWithTokenMutation();
   const userName = useAppSelector((state) => state.user.name);
@@ -24,7 +22,6 @@ function Home() {
   React.useEffect(() => {
     const token = getCookies();
 
-    init();
     console.log(token.token);
     if (typeof token.token === "string" && userName === "Quest") {
       console.log(token.token);

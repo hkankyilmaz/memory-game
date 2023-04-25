@@ -37,21 +37,52 @@ const http_1 = require("http");
 exports.prisma = new client_1.PrismaClient();
 const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
-//listening the port
+// listening the port
 const server = app.listen(8080, () => {
     console.log("Hello Server");
 });
-//socket.io server
+// socket.io server
 const io = new socket_io_1.Server(server);
-//regular middleware
+// regular middleware
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
 app.use((0, cors_1.default)({ origin: true, credentials: true }));
 app.use((0, cookie_parser_1.default)());
-//routes
+// routes
 app.use("/users", userRoutes_js_1.default);
-//socket.io func
+// socket.io
+// online-users
+let users = [];
+// socket.io funcs
 io.on("connection", (socket) => {
     console.log(socket.id);
     console.log("user connected");
+    socket.on("newRoom", (user) => {
+        if (users.length % 2 === 0) {
+            let isUserExixst = users.find((item) => item.email === user.email);
+            if (!isUserExixst) {
+                let _user;
+                _user = { email: user.email, name: user.name, id: socket.id };
+                socket.join(user.email);
+                users.push(_user);
+                socket.emit("newRoom", _user);
+            }
+        }
+        else {
+            socket.emit("newRoom", users.slice(-1));
+            let _user;
+            _user = { email: user.email, name: user.name, id: socket.id };
+            users.push(_user);
+        }
+        console.log("user", users);
+    });
+    socket.on("disconnect", () => {
+        let whoIsDisconnect = users.filter((item) => socket.id == item.id);
+        let filteredUsers = users.filter((item) => socket.id !== item.id);
+        users = filteredUsers;
+        socket.emit(whoIsDisconnect[0].email, "The Game is Finished Because one player disconnect...!");
+        console.log("User Disconnected");
+        console.log("user", users);
+    });
 });
+console.log(users);
