@@ -7,7 +7,7 @@ import styles from "./index.module.scss";
 import "./index.module.scss";
 import Link from "next/link";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { FormEvent, useRef } from "react";
@@ -138,11 +138,6 @@ function Login() {
       <Link href="register">
         <h4>Go To Register Page</h4>
       </Link>
-      <ToastContainer
-        hideProgressBar={true}
-        autoClose={3000}
-        position="top-center"
-      />
     </form>
   );
 }

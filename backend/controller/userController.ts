@@ -27,6 +27,7 @@ export const userRegister = async (req: Request, res: Response) => {
         message: "User e-mail Already Exist...",
       });
     } else {
+      console.log(error);
       res.status(500).json({
         succeded: false,
         message: "Oh no, There is a Problem...",

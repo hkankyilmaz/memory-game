@@ -9,20 +9,32 @@ type IPlayerGeneric<T> = {
 };
 
 interface IGame {
+  isActive: boolean;
   pattern: string[] | [];
   round: number;
-  playerOne: IPlayerGeneric<string> | null;
-  playerTwo: IPlayerGeneric<string> | null;
+  playerOne: IPlayerGeneric<string>;
+  playerTwo: IPlayerGeneric<string>;
   win: number | null;
   lose: number | null;
   matchs: { rival: string; result: string; score: string }[] | [];
 }
 
 const initialState: IGame = {
+  isActive: false,
   pattern: [],
   round: 0,
-  playerOne: null,
-  playerTwo: null,
+  playerOne: {
+    name: "",
+    true: "",
+    false: "",
+    result: "",
+  },
+  playerTwo: {
+    name: "",
+    true: "",
+    false: "",
+    result: "",
+  },
   win: 0,
   lose: 0,
   matchs: [],
@@ -31,9 +43,16 @@ const initialState: IGame = {
 export const gameSlice = createSlice({
   name: "game",
   initialState,
-  reducers: {},
+  reducers: {
+    setPlayerTwoName: (state, action: PayloadAction<string>) => {
+      state.playerTwo.name = action.payload;
+    },
+    setPlayerOneName: (state, action: PayloadAction<string>) => {
+      state.playerOne.name = action.payload;
+    },
+  },
 });
 
-//export const { whoIsUser } = userSlice.actions;
+export const { setPlayerTwoName, setPlayerOneName } = gameSlice.actions;
 
-//export default userSlice.reducer;
+export default gameSlice.reducer;

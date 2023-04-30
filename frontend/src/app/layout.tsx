@@ -6,21 +6,20 @@ export const metadata = {
 
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
+import Modal from "@/components/modal/Modal";
 
 import { Providers } from "./store/provider";
 
 import "@/styles/reset.css";
 import "../../styles/global.css";
 import React from "react";
-
-import { init } from "./socketio";
+import { ToastContainer } from "react-toastify";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  init();
   return (
     <html lang="en">
       <Providers>
@@ -28,6 +27,12 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <Modal />
+          <ToastContainer
+            hideProgressBar={true}
+            autoClose={3000}
+            position="top-center"
+          />
         </body>
       </Providers>
     </html>

@@ -33,10 +33,8 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const userRoutes_js_1 = __importDefault(require("./routes/userRoutes.js"));
 const cors_1 = __importDefault(require("cors"));
 const socket_io_1 = require("socket.io");
-const http_1 = require("http");
 exports.prisma = new client_1.PrismaClient();
 const app = (0, express_1.default)();
-const httpServer = (0, http_1.createServer)(app);
 // listening the port
 const server = app.listen(8080, () => {
     console.log("Hello Server");
@@ -53,36 +51,53 @@ app.use("/users", userRoutes_js_1.default);
 // socket.io
 // online-users
 let users = [];
+let rooms = [];
 // socket.io funcs
 io.on("connection", (socket) => {
-    console.log(socket.id);
-    console.log("user connected");
-    socket.on("newRoom", (user) => {
-        if (users.length % 2 === 0) {
-            let isUserExixst = users.find((item) => item.email === user.email);
-            if (!isUserExixst) {
+    console.log("user connected...!");
+    socket.on("Messages", (message) => {
+        let _room = rooms.filter((item) => item == message.room);
+        io.in(_room[0]).emit("amk");
+        console.log(message);
+    });
+    socket.on("chatRoom", (user) => {
+        let isUserExixst = users.find((item) => item.email === user.email);
+        console.log(user);
+        if (!isUserExixst) {
+            if (users.length % 2 === 0) {
                 let _user;
                 _user = { email: user.email, name: user.name, id: socket.id };
                 socket.join(user.email);
                 users.push(_user);
-                socket.emit("newRoom", _user);
+                socket.emit("chatRoom", _user);
+                socket.broadcast.emit("chatRoom", _user);
+            }
+            else {
+                let _user;
+                _user = { email: user.email, name: user.name, id: socket.id };
+                users.push(_user);
+                rooms.push(user.email);
+                socket.join(users.slice(-2)[0].email);
+                users.slice(-2).map((item) => {
+                    io.sockets.connected[item.id].join(users.slice(-2)[0].email);
+                });
+                socket.emit("chatRoom", users.slice(-2)[1]);
+                socket.broadcast.emit("chatRoom", users.slice(-2)[1]);
             }
         }
-        else {
-            socket.emit("newRoom", users.slice(-1));
-            let _user;
-            _user = { email: user.email, name: user.name, id: socket.id };
-            users.push(_user);
-        }
-        console.log("user", users);
+        console.log(users, rooms);
+        console.log(io.sockets.adapter.rooms);
     });
     socket.on("disconnect", () => {
         let whoIsDisconnect = users.filter((item) => socket.id == item.id);
         let filteredUsers = users.filter((item) => socket.id !== item.id);
         users = filteredUsers;
-        socket.emit(whoIsDisconnect[0].email, "The Game is Finished Because one player disconnect...!");
+        console.log("deneme", socket.id, whoIsDisconnect);
+        // socket.emit(
+        //   whoIsDisconnect[0].email,
+        //   "The Game is Finished Because one player disconnect...!"
+        // );
         console.log("User Disconnected");
-        console.log("user", users);
     });
 });
 console.log(users);
