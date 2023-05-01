@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -57,17 +66,16 @@ io.on("connection", (socket) => {
     console.log("user connected...!");
     socket.on("Messages", (message) => {
         let _room = rooms.filter((item) => item == message.room);
-        io.in(_room[0]).emit("amk");
-        console.log(message);
+        socket.in(_room[0]).emit("chatRoom", message);
+        console.log("Message Kanalına Mesaj Geldi");
     });
-    socket.on("chatRoom", (user) => {
+    socket.on("chatRoom", (user) => __awaiter(void 0, void 0, void 0, function* () {
         let isUserExixst = users.find((item) => item.email === user.email);
         console.log(user);
         if (!isUserExixst) {
             if (users.length % 2 === 0) {
                 let _user;
                 _user = { email: user.email, name: user.name, id: socket.id };
-                socket.join(user.email);
                 users.push(_user);
                 socket.emit("chatRoom", _user);
                 socket.broadcast.emit("chatRoom", _user);
@@ -77,9 +85,10 @@ io.on("connection", (socket) => {
                 _user = { email: user.email, name: user.name, id: socket.id };
                 users.push(_user);
                 rooms.push(user.email);
-                socket.join(users.slice(-2)[0].email);
-                users.slice(-2).map((item) => {
-                    io.sockets.connected[item.id].join(users.slice(-2)[0].email);
+                const sockets = yield io.fetchSockets();
+                console.log(sockets.slice(-2));
+                sockets.slice(-2).map((item) => {
+                    item.join(users.slice(-2)[1].email);
                 });
                 socket.emit("chatRoom", users.slice(-2)[1]);
                 socket.broadcast.emit("chatRoom", users.slice(-2)[1]);
@@ -87,7 +96,7 @@ io.on("connection", (socket) => {
         }
         console.log(users, rooms);
         console.log(io.sockets.adapter.rooms);
-    });
+    }));
     socket.on("disconnect", () => {
         let whoIsDisconnect = users.filter((item) => socket.id == item.id);
         let filteredUsers = users.filter((item) => socket.id !== item.id);

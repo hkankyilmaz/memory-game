@@ -13,15 +13,6 @@ import { getCookies } from "cookies-next";
 
 import { useAppDispatch, useAppSelector } from "@/src/app/store/hooks";
 import { useGetUserWithTokenMutation } from "@/src/app/store/features/api/userApiSlice";
-import { whoIsUser } from "@/src/app/store/features/user/userSlice";
-import { setRoom } from "@/src/app/store/features/chat/chatSlice";
-import {
-  setPlayerTwoName,
-  setPlayerOneName,
-} from "@/src/app/store/features/game/gameSlice";
-
-import { subscribeSeekGame, subscribeRoom, init } from "@/src/app/socketio";
-import { setChat } from "@/src/app/store/features/chat/chatSlice";
 
 function Home() {
   const [getUserWithToken, { isLoading, data }] = useGetUserWithTokenMutation();
@@ -29,11 +20,8 @@ function Home() {
   const state = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  console.log(state);
-
   React.useEffect(() => {
     // const token = getCookies();
-
     // if (typeof token.token === "string" && userName === "Quest") {
     //   dispatch(setPlayerOneName(userName));
     //   console.log(token.token);
@@ -50,33 +38,6 @@ function Home() {
     //     })
     //     .catch((err) => console.log(err));
     // }
-
-    subscribeSeekGame(
-      (message: {
-        text?: string;
-        fromMe?: boolean;
-        email?: string;
-        name?: string;
-      }) => {
-        console.log(message);
-        if (message.email) {
-          dispatch(setRoom(message.email));
-          console.log(message.email);
-          subscribeRoom();
-        }
-
-        if (message.name && userName !== message.name && userName !== "Quest") {
-          dispatch(setPlayerTwoName(message.name));
-        } else {
-          dispatch(setPlayerOneName(userName));
-        }
-
-        if (message.text && message.fromMe) {
-          dispatch(setChat({ text: message.text, fromMe: message.fromMe }));
-        }
-      }
-    );
-    console.log(state);
   }, []);
 
   const user = useAppSelector((state) => state.user);

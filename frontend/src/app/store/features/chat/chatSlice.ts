@@ -14,10 +14,7 @@ interface IChat {
 
 const initialState: IChat = {
   isActive: false,
-  chat: [
-    { text: "How are You ?", fromMe: true },
-    { text: "Fine, you ?", fromMe: false },
-  ],
+  chat: [],
   room: "",
 };
 

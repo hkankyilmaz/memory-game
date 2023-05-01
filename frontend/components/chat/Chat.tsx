@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { RiSendPlane2Fill } from "react-icons/ri";
 
@@ -16,10 +17,19 @@ function Chat() {
 
   const [chat_, setChat_] = React.useState<string>("");
 
+  console.log(chat_);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(setChat({ fromMe: true, text: chat_ }));
-    sendMessage({ fromMe: true, text: chat_, room: state.chat.room });
+    sendMessage({
+      fromMe: true,
+      text: chat_,
+      room: state.chat.room,
+      email: state.user.email,
+    });
+    setChat_("");
+    console.log("form submit oldu");
   };
 
   return (
@@ -36,7 +46,11 @@ function Chat() {
           ))}
         </div>
         <form onSubmit={handleSubmit} className={styles.inputContainer}>
-          <input onChange={(e) => setChat_(e.target.value)} type="text" />
+          <input
+            value={chat_}
+            onChange={(e) => setChat_(e.target.value)}
+            type="text"
+          />
           <button type="submit">
             <RiSendPlane2Fill className={styles.sendIcon} />
           </button>
