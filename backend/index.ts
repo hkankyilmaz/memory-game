@@ -52,25 +52,48 @@ io.on("connection", (socket) => {
     console.log(user);
     if (!isUserExixst) {
       if (users.length % 2 === 0) {
-        let _user: { name: string; email: string; id: string };
-        _user = { email: user.email, name: user.name, id: socket.id };
+        let _user: {
+          name: string;
+          email: string;
+          id: string;
+          isSetGame: boolean;
+          room: string;
+        };
+        _user = {
+          email: user.email,
+          name: user.name,
+          id: socket.id,
+          isSetGame: true,
+          room: user.email,
+        };
 
         users.push(_user);
-        socket.emit("chatRoom", _user);
-        socket.broadcast.emit("chatRoom", _user);
-      } else {
-        let _user: { name: string; email: string; id: string };
-        _user = { email: user.email, name: user.name, id: socket.id };
-        users.push(_user);
         rooms.push(user.email);
+      } else {
+        let _user: {
+          name: string;
+          email: string;
+          id: string;
+          isSetGame: boolean;
+          room: string;
+        };
+        _user = {
+          email: user.email,
+          name: user.name,
+          id: socket.id,
+          isSetGame: true,
+          room: users.slice(-1)[0].email,
+        };
+        users.push(_user);
 
         const sockets = await io.fetchSockets();
         console.log(sockets.slice(-2));
         sockets.slice(-2).map((item) => {
-          item.join(users.slice(-2)[1].email);
+          item.join(users.slice(-2)[0].email);
         });
-        socket.emit("chatRoom", users.slice(-2)[1]);
-        socket.broadcast.emit("chatRoom", users.slice(-2)[1]);
+
+        socket.to(users.slice(-2)[0].id).emit("chatRoom", users.slice(-2)[1]);
+        socket.emit("chatRoom", users.slice(-2)[0]);
       }
     }
     console.log(users, rooms);

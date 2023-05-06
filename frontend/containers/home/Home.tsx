@@ -40,10 +40,12 @@ function Home() {
     // }
   }, []);
 
-  const user = useAppSelector((state) => state.user);
+  console.log(state);
   return (
     <div className={styles.container}>
-      <h1 className={styles.titleh1}>{user.name}, Welcome To Memory Game</h1>
+      <h1 className={styles.titleh1}>
+        {state.user.name}, Welcome To Memory Game
+      </h1>
       <Chat />
       <Game />
       <GameDetail />

@@ -6,10 +6,7 @@ import {
   setPlayerTwoName,
   setPlayerOneName,
 } from "./store/features/game/gameSlice";
-
-let state = store.getState();
-let userName = state.user.name;
-let email = state.user.email;
+import { setModal } from "./store/features/modal/modalSlice";
 
 let socket = io("www.localhost:8080", {
   transports: ["websocket"],
@@ -42,15 +39,24 @@ export const subscribeSeekGame = () => {
       fromMe?: boolean;
       email?: string;
       name?: string;
+      isSetGame?: boolean;
+      room?: string;
     }) => {
-      if (message.email && !message.text) {
-        store.dispatch(setRoom(message.email));
-        //subscribeRoom();
-      }
-      if (message.name && userName !== message.name && userName !== "Quest") {
+      let state = store.getState();
+      let userName = state.user.name;
+      let email = state.user.email;
+      console.log(message);
+      console.log(
+        message.name !== "",
+        userName !== message.name,
+        userName !== "Quest",
+        state
+      );
+      if (message.isSetGame) {
         store.dispatch(setPlayerTwoName(message.name));
-      } else {
-        store.dispatch(setPlayerOneName(userName));
+        store.dispatch(setModal(false));
+        store.dispatch(setRoom(message.room));
+        console.log("2 calistiii");
       }
 
       if (message.text && message.fromMe) {
@@ -68,7 +74,7 @@ subscribeSeekGame();
 
 export const subscribeRoom = () => {
   socket.on(
-    "hkankyilmazz@gmail.com",
+    "ahmet@gmail.com",
     (message: {
       text?: string;
       fromMe?: boolean;
