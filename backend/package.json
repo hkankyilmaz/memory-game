@@ -26,7 +26,8 @@
     "jsonwebtoken": "^9.0.0",
     "nodemon": "^2.0.22",
     "rimraf": "^4.4.1",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

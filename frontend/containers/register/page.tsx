@@ -9,7 +9,7 @@ import Link from "next/link";
 
 import { FormEvent, useRef } from "react";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useRegisterUserMutation } from "@/src/app/store/features/api/userApiSlice";
@@ -145,11 +145,6 @@ function Login() {
       <Link href="register">
         <h4>Back To Login Page</h4>
       </Link>
-      <ToastContainer
-        hideProgressBar={true}
-        autoClose={3000}
-        position="top-center"
-      />
     </form>
   );
 }

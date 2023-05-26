@@ -2,6 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/user/userSlice";
 import { userApiSlice } from "./features/api/userApiSlice";
 import chatReducer from "./features/chat/chatSlice";
+import modalSlice from "./features/modal/modalSlice";
+import gameSlice from "./features/game/gameSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 // ...
@@ -10,6 +12,8 @@ export const store = configureStore({
   reducer: {
     user: userReducer,
     chat: chatReducer,
+    modal: modalSlice,
+    game: gameSlice,
     [userApiSlice.reducerPath]: userApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

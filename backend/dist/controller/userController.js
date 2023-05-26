@@ -41,6 +41,7 @@ const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             });
         }
         else {
+            console.log(error);
             res.status(500).json({
                 succeded: false,
                 message: "Oh no, There is a Problem...",

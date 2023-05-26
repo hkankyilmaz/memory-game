@@ -1,26 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface IChat {
+interface IMessages {
   text: string;
   fromMe: boolean;
 }
 
-const initialState: IChat[] | [] = [
-  { text: "How are You ?", fromMe: true },
-  { text: "Fine, you ?", fromMe: false },
-];
+interface IChat {
+  isActive: boolean;
+  chat: IMessages[];
+  room: string;
+}
+
+const initialState: IChat = {
+  isActive: false,
+  chat: [],
+  room: "",
+};
 
 export const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    setChat: (state, action: PayloadAction<IChat>) => {
-      state = [...state, action.payload];
+    setChat: (state, action: PayloadAction<IMessages>) => {
+      state.chat = [...state.chat, action.payload];
+    },
+    setRoom: (state, action: PayloadAction<string>) => {
+      state.room = action.payload;
     },
   },
 });
 
-export const { setChat } = chatSlice.actions;
+export const { setChat, setRoom } = chatSlice.actions;
 
 export default chatSlice.reducer;

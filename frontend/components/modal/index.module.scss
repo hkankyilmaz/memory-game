@@ -1,0 +1,33 @@
+.container {
+  display: block;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+
+  p {
+    text-align: center;
+    color: white;
+    margin-bottom: 1rem;
+  }
+}
+.contentContainer {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.isOpen {
+  display: none;
+}
